@@ -27,11 +27,11 @@ func SetupRoutes() *gin.Engine {
 			postGroup.PUT("/:id", controllers.UpdatePost)
 			postGroup.DELETE("/:id", controllers.DeletePost)
 
-			// todo: make these routes in the v2 version of the API.
+			// todo: make these routes in the v2 version of the API
 			//postGroup.GET("/user/:id", controllers.GetPostsByUserID)
 			//postGroup.GET("/search", controllers.SearchPosts)
 			//postGroup.GET("/recent", controllers.GetRecentPosts)
-			//postGroup.GET("/drafts", controllers.GetDraftPosts)
+			//postGroup.GET("/	drafts", controllers.GetDraftPosts)
 		}
 
 		// post comment routes
