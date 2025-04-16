@@ -1,11 +1,13 @@
 package app
 
 import (
-	"github.com/hedagaurav/blog-api/config"
-	"github.com/hedagaurav/blog-api/routes"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
+
+	"github.com/hedagaurav/blog-api/config"
+	"github.com/hedagaurav/blog-api/config/seeder"
+	"github.com/hedagaurav/blog-api/routes"
+	"github.com/joho/godotenv"
 )
 
 var router = routes.SetupRoutes()
@@ -16,6 +18,9 @@ func init() {
 
 	// Initialize the database connection
 	config.ConnectDatabase()
+
+	// run seeder
+	seeder.SeedData()
 }
 
 // LoadEnv loads the environment variables from the specified file

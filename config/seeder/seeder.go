@@ -1,23 +1,26 @@
 package seeder
 
 import (
+	"log"
+
 	"github.com/go-faker/faker/v4"
 	"github.com/hedagaurav/blog-api/config"
 	"github.com/hedagaurav/blog-api/models"
-	"log"
-	"time"
 )
 
-func seedData() {
+func SeedData() {
 	db := config.DB
 
 	// Seed users
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100; i++ {
 		user := models.User{}
 		if err := faker.FakeData(&user); err != nil {
 			log.Println("Error seeding user:", err)
 			continue
 		}
+
+		user.ID = 0 // Reset ID to 0 to let GORM auto-generate it
+
 		if err := db.Create(&user).Error; err != nil {
 			log.Println("Error creating user:", err)
 		}
@@ -31,11 +34,9 @@ func seedData() {
 
 	// Seed 100,000 posts
 	var posts []models.Post
-	for i := 0; i < 100000; i++ {
+	for i := range 1000 {
 		post := models.Post{
-			Author:    userIDs[i%len(userIDs)],
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
+			AuthorId: userIDs[i%len(userIDs)],
 		}
 		if err := faker.FakeData(&post); err != nil {
 			log.Fatalf("Failed to generate fake post: %v", err)
